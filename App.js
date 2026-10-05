@@ -5,8 +5,27 @@ import * as ImagePicker from 'expo-image-picker';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Svg, { Path } from 'react-native-svg';
 
 const STORAGE_KEY = '@pet_diary_data';
+
+const CalendarCardIcon = () => (
+  <Svg width={28} height={28} viewBox="0 0 640 640" fill="#757F9A">
+    <Path d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM480 496C488.8 496 496 488.8 496 480L496 416L408 416L408 496L480 496zM496 368L496 288L408 288L408 368L496 368zM360 368L360 288L280 288L280 368L360 368zM232 368L232 288L144 288L144 368L232 368zM144 416L144 480C144 488.8 151.2 496 160 496L232 496L232 416L144 416zM280 416L280 496L360 496L360 416L280 416zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176z" />
+  </Svg>
+);
+
+const VaccineCardIcon = () => (
+  <Svg width={28} height={28} viewBox="0 0 640 640" fill="none">
+    <Path stroke="#7F0808" strokeWidth={28} strokeLinecap="round" strokeLinejoin="round" d="M529.5 47C520.1 37.6 504.9 37.6 495.6 47C486.3 56.4 486.2 71.6 495.6 80.9L510.6 95.9L464.5 142L401.5 79C392.1 69.6 376.9 69.6 367.6 79C358.3 88.4 358.2 103.6 367.6 112.9L374.6 119.9L296.5 198L337.5 239C346.9 248.4 346.9 263.6 337.5 272.9C328.1 282.2 312.9 282.3 303.6 272.9L262.6 231.9L216.5 278L257.5 319C266.9 328.4 266.9 343.6 257.5 352.9C248.1 362.2 232.9 362.3 223.6 352.9L182.6 311.9L144.9 349.6C134.4 360.1 128.5 374.3 128.5 389.2L128.5 478L71.5 535C62.1 544.4 62.1 559.6 71.5 568.9C80.9 578.2 96.1 578.3 105.4 568.9L162.4 511.9L251.2 511.9C266.1 511.9 280.3 506 290.8 495.5L520.5 265.8L527.5 272.8C536.9 282.2 552.1 282.2 561.4 272.8C570.7 263.4 570.8 248.2 561.4 238.9L498.4 175.9L544.5 129.8L559.5 144.8C568.9 154.2 584.1 154.2 593.4 144.8C602.7 135.4 602.8 120.2 593.4 110.9L529.4 46.9z" />
+  </Svg>
+);
+
+const EmptyDiaryIcon = () => (
+  <Svg width={38} height={38} viewBox="0 0 640 640" fill="rgba(110, 103, 75, 1.00)">
+    <Path d="M197.4 224C193.5 224 190.2 221.2 189.3 217.4C179.1 175.3 141.2 144 96 144C43 144 0 187 0 240C0 269.1 12.9 295.1 33.3 312.7C37.6 316.4 37.6 323.5 33.3 327.2C12.9 344.8 0 370.9 0 399.9C0 452.9 43 495.9 96 495.9C141.2 495.9 179.1 464.6 189.3 422.5C190.2 418.7 193.5 415.9 197.4 415.9L442.5 415.9C446.4 415.9 449.7 418.7 450.6 422.5C460.8 464.6 498.7 495.9 543.9 495.9C596.9 495.9 639.9 452.9 639.9 399.9C639.9 370.8 627 344.8 606.6 327.2C602.3 323.5 602.3 316.4 606.6 312.7C627 295.1 639.9 269 639.9 240C639.9 187 596.9 144 543.9 144C498.7 144 460.8 175.3 450.6 217.4C449.7 221.2 446.4 224 442.5 224L197.4 224z" />
+  </Svg>
+);
 
 const savePetsData = async (petsData) => {
   try {
@@ -340,29 +359,66 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Pets Diary</Text>
-      
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-          style={[styles.addButton, { flex: 1 }]}
-          onPress={() => setModalVisible(true)}>
-          <Text style={styles.addButtonText}>Add New Pet</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          style={[styles.addButton, { flex: 1, backgroundColor: '#2196F3' }]}
-          onPress={() => setCalendarVisible(true)}>
-          <Text style={styles.addButtonText}>View Calendar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          style={[styles.addButton, { flex: 1, backgroundColor: '#4CAF50' }]}
-          onPress={() => setVaccinationListVisible(true)}>
-          <Text style={styles.addButtonText}>Vaccinations</Text>
-        </TouchableOpacity>
+      <View style={styles.hero}>
+        <View style={styles.heroCopy}>
+          <Text style={styles.eyebrow}>PET CARE, SIMPLIFIED</Text>
+          <Text style={styles.title}>My Pets Diary</Text>
+          <Text style={styles.subtitle}>
+            {pets.length === 0
+              ? 'Keep every little moment in one place.'
+              : `${pets.length} ${pets.length === 1 ? 'pet' : 'pets'} in your family`}
+          </Text>
+        </View>
       </View>
 
-      <ScrollView style={styles.petList}>
+      <View style={styles.homeActions}>
+        <TouchableOpacity 
+          style={styles.primaryAction}
+          onPress={() => setModalVisible(true)}>
+          <View style={styles.primaryActionIcon}>
+            <Text style={styles.actionIconText}>＋</Text>
+          </View>
+          <View>
+            <Text style={styles.primaryActionTitle}>Add a pet</Text>
+            <Text style={styles.primaryActionSubtitle}>Create their little profile</Text>
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.secondaryActions}>
+          <TouchableOpacity
+            style={[styles.secondaryAction, styles.calendarAction]}
+            onPress={() => setCalendarVisible(true)}>
+            <View style={styles.secondaryActionIcon}>
+              <CalendarCardIcon />
+            </View>
+            <Text style={styles.secondaryActionTitle}>Calendar</Text>
+            <Text style={styles.secondaryActionSubtitle}>Appointments</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.secondaryAction, styles.vaccineAction]}
+            onPress={() => setVaccinationListVisible(true)}>
+            <View style={styles.secondaryActionIcon}>
+              <VaccineCardIcon />
+            </View>
+            <Text style={styles.secondaryActionTitle}>Vaccines</Text>
+            <Text style={styles.secondaryActionSubtitle}>Health records</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <ScrollView style={styles.petList} contentContainerStyle={styles.petListContent}>
+        {pets.length === 0 && (
+          <View style={styles.emptyState}>
+            <View style={styles.emptyStateIcon}>
+              <EmptyDiaryIcon />
+            </View>
+            <Text style={styles.emptyStateTitle}>Your diary is ready</Text>
+            <Text style={styles.emptyStateText}>
+              Add your first pet to keep their appointments, vaccinations, and memories together.
+            </Text>
+          </View>
+        )}
         {pets.map(pet => (
           <View key={pet.id} style={styles.petCard}>
             <View style={styles.buttonContainer}>
@@ -775,15 +831,106 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F7F8F4',
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 56,
+  },
+  hero: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  heroCopy: {
+    flex: 1,
+  },
+  eyebrow: {
+    color: '#6A7A6A',
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 1.1,
+    marginBottom: 3,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
+    color: '#1E3024',
+    fontSize: 26,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+  },
+  subtitle: {
+    color: '#68746B',
+    fontSize: 13,
+    marginTop: 3,
+  },
+  homeActions: {
+    marginBottom: 24,
+  },
+  primaryAction: {
+    alignItems: 'center',
+    backgroundColor: '#39764A',
+    borderRadius: 20,
+    flexDirection: 'row',
+    minHeight: 82,
+    paddingHorizontal: 18,
+    shadowColor: '#265432',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.18,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+  primaryActionIcon: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
+    borderRadius: 16,
+    height: 46,
+    justifyContent: 'center',
+    marginRight: 14,
+    width: 46,
+  },
+  actionIconText: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    fontWeight: '300',
+    lineHeight: 30,
+  },
+  primaryActionTitle: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: '800',
+  },
+  primaryActionSubtitle: {
+    color: '#DDEEDF',
+    fontSize: 13,
+    marginTop: 2,
+  },
+  secondaryActions: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 12,
+  },
+  secondaryAction: {
+    borderRadius: 18,
+    flex: 1,
+    minHeight: 118,
+    padding: 15,
+  },
+  calendarAction: {
+    backgroundColor: '#C9D3DD',
+  },
+  vaccineAction: {
+    backgroundColor: '#F2D8B7',
+  },
+  secondaryActionIcon: {
+    marginBottom: 12,
+  },
+  secondaryActionTitle: {
+    color: '#243130',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  secondaryActionSubtitle: {
+    color: '#68746B',
+    fontSize: 12,
+    marginTop: 3,
   },
   addButton: {
     backgroundColor: '#4CAF50',
@@ -799,6 +946,34 @@ const styles = StyleSheet.create({
   },
   petList: {
     flex: 1,
+  },
+  petListContent: {
+    paddingBottom: 24,
+  },
+  emptyState: {
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E5E9E2',
+    borderRadius: 20,
+    borderWidth: 1,
+    marginTop: 4,
+    paddingHorizontal: 28,
+    paddingVertical: 30,
+  },
+  emptyStateIcon: {
+    marginBottom: 10,
+  },
+  emptyStateTitle: {
+    color: '#253529',
+    fontSize: 17,
+    fontWeight: '800',
+    marginBottom: 7,
+  },
+  emptyStateText: {
+    color: '#68746B',
+    fontSize: 13,
+    lineHeight: 19,
+    textAlign: 'center',
   },
   petCard: {
     backgroundColor: 'white',
