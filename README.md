@@ -44,3 +44,48 @@ After running `npm start`, scan the QR code with the Expo Go app on your mobile 
 ## License
 
 Private
+# My Pets Diary
+
+A mobile pet-care diary built with Expo and React Native. Keep pet profiles, photos, vaccinations, appointments, and health records together in one place.
+
+## Features
+
+- Create, edit, and delete pet profiles.
+- Add, replace, or remove pet photos.
+- Record vaccinations and schedule appointments.
+- View appointments in a calendar and review each pet's health history.
+- Browse vaccination records across every pet.
+- Save data locally on the device with AsyncStorage.
+
+## Tech stack
+
+- Expo and React Native
+- AsyncStorage
+- Expo Image Picker, File System, and Image Manipulator
+- `react-native-calendars` and `@react-native-community/datetimepicker`
+- Expo Google Fonts (Inter) and `react-native-svg`
+
+## Expo connection troubleshooting
+
+If a device cannot connect to Expo CLI, restart Metro and clear its cache:
+
+```bash
+npx expo start --clear
+```
+
+The device and computer must use the same Wi-Fi network. If the local network blocks the connection, use a tunnel:
+
+```bash
+npx expo start --tunnel
+```
+
+For a USB-connected Android device, enable USB debugging and run:
+
+```bash
+adb devices
+adb reverse tcp:8081 tcp:8081
+```
+
+## Local data
+
+Pet profiles and health records are stored on the device under the AsyncStorage key `@pet_diary_data`. Clearing app storage or uninstalling the app removes this local data.
